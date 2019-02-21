@@ -1,0 +1,50 @@
+﻿<Window x:Class="Wynagrodzenia.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wynagrodzenia"
+        mc:Ignorable="d"
+        Title="Kalkulator wynagrodzeń" Height="450" Width="1020" ResizeMode="CanMinimize">
+    <Window.Effect>
+        <DropShadowEffect/>
+    </Window.Effect>
+    <Grid Background="#FF3C3C3C">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="806*"/>
+            <ColumnDefinition Width="215*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="Lista_plac" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="990" Height="250" Background="#FFF9F9F9" Grid.ColumnSpan="2">
+
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#FF00FFC5"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,2"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Płaca podstawowa" Binding="{Binding placa_podstawowa}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Dodatki" Binding="{Binding dodatki}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Wynagrodz. Brutto" Binding="{Binding wynagr_brutto}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ubezp. emerytalne" Binding="{Binding ubezp_emerytalne}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ubezp. rentowe" Binding="{Binding ubezp_rentowe}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ubezp. chorobowe" Binding="{Binding ubezp_chorobowe}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ubezp. zdrowotne" Binding="{Binding ubezp_zdrowotne}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Podatek do US" Binding="{Binding podatekUS}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Wynagrodz. Netto" Binding="{Binding wynagr_netto}" Width="110"></DataGridTextColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <Button x:Name="oblicz_button" Content="Oblicz" HorizontalAlignment="Left" Margin="145,364,0,0" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Width="120" Height="30" Click="Oblicz_button_Click" Cursor="Hand" IsDefault="True"/>
+        <TextBox x:Name="placapodstText" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="145,274,0,0" RenderTransformOrigin="0.508,0.511"/>
+        <TextBox x:Name="dodatkiText" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="145,302,0,0"/>
+        <TextBox x:Name="nieskładkoweText" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="145,330,0,0"/>
+        <Label Content="Płaca zasadnicza:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16,268,0,0" Width="124" Foreground="White" FontWeight="Bold" FontSize="14"/>
+        <Label Content="Dodatki:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="72,301,0,0" Width="68" Foreground="White" FontWeight="Bold" FontSize="14"/>
+        <Label Content="Dodatki nieopod.:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,330,0,0" Width="130" Foreground="White" FontWeight="Bold" FontSize="14"/>
+        <Button x:Name="excelButton" Content="Zapisz do Excela" HorizontalAlignment="Left" VerticalAlignment="Top" Width="184" Margin="10,275,0,0" Cursor="Hand" Height="45" FontSize="20" FontWeight="Bold" IsEnabled="False" Grid.Column="1"/>
+    </Grid>
+</Window>
