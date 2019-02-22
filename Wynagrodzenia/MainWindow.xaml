@@ -4,47 +4,120 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wynagrodzenia"
-        mc:Ignorable="d"
-        Title="Kalkulator wynagrodzeń" Height="450" Width="1020" ResizeMode="CanMinimize">
-    <Window.Effect>
-        <DropShadowEffect/>
-    </Window.Effect>
-    <Grid Background="#FF3C3C3C">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="806*"/>
-            <ColumnDefinition Width="215*"/>
-        </Grid.ColumnDefinitions>
-        <DataGrid x:Name="Lista_plac" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="990" Height="250" Background="#FFF9F9F9" Grid.ColumnSpan="2">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" Height="550" Width="1140" WindowStartupLocation="Manual" ResizeMode="NoResize" WindowStyle="None">
+    <Window.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Menuleft">
+                <EasingDoubleKeyFrame KeyTime="0" Value="60"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="220"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Menuleft">
+                <EasingDoubleKeyFrame KeyTime="0" Value="220"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="60"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}"/>
+        </EventTrigger>
+    </Window.Triggers>
+
+
+
+    <Grid Background="Gainsboro">
+        <Grid x:Name="TitleTop" Height="60" VerticalAlignment="Top" Grid.ColumnSpan="2" Background="#FF00C500">
+            <TextBlock Text="Kalkulator wynagrodzeń" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="22"/>
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="1045,10,55,10" Width="Auto">
+                <materialDesign:PackIcon Kind="WindowMinimize" Width="25" Height="25"/>
+            </Button>
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="1095,10,5,10" Width="Auto">
+                <materialDesign:PackIcon Kind="Close" Width="25" Height="25"/>
+            </Button>
+        </Grid>
+        <DataGrid x:Name="Lista_plac" HorizontalAlignment="Left" Margin="60,60,0,0" VerticalAlignment="Top" Width="1080" Height="300" Background="#FFBBBBBB">
 
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#FF00FFC5"/>
-                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Background" Value="#FF008B00"/>
+                    <Setter Property="Foreground" Value="White"/>
                     <Setter Property="BorderThickness" Value="0,0,1,2"/>
                     <Setter Property="BorderBrush" Value="Black"/>
 
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Płaca podstawowa" Binding="{Binding placa_podstawowa}" Width="110"></DataGridTextColumn>
-                <DataGridTextColumn Header="Dodatki" Binding="{Binding dodatki}" Width="110"></DataGridTextColumn>
-                <DataGridTextColumn Header="Wynagrodz. Brutto" Binding="{Binding wynagr_brutto}" Width="110"></DataGridTextColumn>
-                <DataGridTextColumn Header="Ubezp. emerytalne" Binding="{Binding ubezp_emerytalne}" Width="110"></DataGridTextColumn>
-                <DataGridTextColumn Header="Ubezp. rentowe" Binding="{Binding ubezp_rentowe}" Width="110"></DataGridTextColumn>
-                <DataGridTextColumn Header="Ubezp. chorobowe" Binding="{Binding ubezp_chorobowe}" Width="110"></DataGridTextColumn>
-                <DataGridTextColumn Header="Ubezp. zdrowotne" Binding="{Binding ubezp_zdrowotne}" Width="110"></DataGridTextColumn>
-                <DataGridTextColumn Header="Podatek do US" Binding="{Binding podatekUS}" Width="110"></DataGridTextColumn>
-                <DataGridTextColumn Header="Wynagrodz. Netto" Binding="{Binding wynagr_netto}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Płaca podst." Binding="{Binding placa_podstawowa}" Width="120"></DataGridTextColumn>
+                <DataGridTextColumn Header="Dodatki" Binding="{Binding dodatki}" Width="120"></DataGridTextColumn>
+                <DataGridTextColumn Header="Wynagr. Brutto" Binding="{Binding wynagr_brutto}" Width="120"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ubezp. emerytalne" Binding="{Binding ubezp_emerytalne}" Width="120"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ubezp. rentowe" Binding="{Binding ubezp_rentowe}" Width="120"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ubezp. chorobowe" Binding="{Binding ubezp_chorobowe}" Width="120"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ubezp. zdrowotne" Binding="{Binding ubezp_zdrowotne}" Width="120"></DataGridTextColumn>
+                <DataGridTextColumn Header="Podatek do US" Binding="{Binding podatekUS}" Width="120"></DataGridTextColumn>
+                <DataGridTextColumn Header="Wynagr. Netto" Binding="{Binding wynagr_netto}" Width="120"></DataGridTextColumn>
             </DataGrid.Columns>
 
         </DataGrid>
-        <Button x:Name="oblicz_button" Content="Oblicz" HorizontalAlignment="Left" Margin="145,364,0,0" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Width="120" Height="30" Click="Oblicz_button_Click" Cursor="Hand" IsDefault="True"/>
-        <TextBox x:Name="placapodstText" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="145,274,0,0" RenderTransformOrigin="0.508,0.511"/>
-        <TextBox x:Name="dodatkiText" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="145,302,0,0"/>
-        <TextBox x:Name="nieskładkoweText" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="145,330,0,0"/>
-        <Label Content="Płaca zasadnicza:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16,268,0,0" Width="124" Foreground="White" FontWeight="Bold" FontSize="14"/>
-        <Label Content="Dodatki:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="72,301,0,0" Width="68" Foreground="White" FontWeight="Bold" FontSize="14"/>
-        <Label Content="Dodatki nieopod.:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,330,0,0" Width="130" Foreground="White" FontWeight="Bold" FontSize="14"/>
-        <Button x:Name="excelButton" Content="Zapisz do Excela" HorizontalAlignment="Left" VerticalAlignment="Top" Width="184" Margin="10,275,0,0" Cursor="Hand" Height="45" FontSize="20" FontWeight="Bold" IsEnabled="False" Grid.Column="1"/>
+
+        <Button x:Name="oblicz_button" Content="Oblicz" HorizontalAlignment="Left" Margin="200,487,0,0" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Width="121" Height="38" Click="Oblicz_button_Click" Cursor="Hand" IsDefault="True" Background="#FF00D300" BorderBrush="#FF2B6800"/>
+        <TextBox x:Name="placapodstText" HorizontalAlignment="Left" Height="31" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="121" Margin="200,365,0,0" RenderTransformOrigin="0.508,0.511" CaretBrush="#FF00AF00" SelectionBrush="#FF00AF00"/>
+        <TextBox x:Name="dodatkiText" HorizontalAlignment="Left" Height="31" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="121" Margin="200,401,0,0" SelectionBrush="#FF00AF00" CaretBrush="#FF00AF00"/>
+        <TextBox x:Name="nieskładkoweText" HorizontalAlignment="Left" Height="33" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="121" Margin="200,438,0,0" CaretBrush="#FF00AF00" SelectionBrush="#FF00AF00"/>
+        <Label Content="Płaca zasadnicza:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="71,365,0,0" Width="124" Foreground="#FF040404" FontWeight="Bold" FontSize="14" Height="31"/>
+        <Label Content="Dodatki:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,401,0,0" Width="68" Foreground="Black" FontWeight="Bold" FontSize="14" Height="31"/>
+        <Label Content="Dodatki nieopod.:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="65,438,0,0" Width="130" Foreground="Black" FontWeight="Bold" FontSize="14" Height="33" RenderTransformOrigin="0.277,0.452"/>
+
+        <Grid x:Name="Menuleft" Width="60" HorizontalAlignment="Left" Background="#FF009104">
+            <StackPanel>
+                <Grid Height="150" Background="White" Margin="0,0,0,0">
+                    <Button x:Name="ButtonCloseMenu" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Collapsed" Click="ButtonCloseMenu_Click">
+                        <materialDesign:PackIcon Foreground="Black" Kind="ArrowLeft" Width="25" Height="25"/>
+                    </Button>
+                    <Button x:Name="ButtonOpenMenu" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonOpenMenu_Click">
+                        <materialDesign:PackIcon Foreground="Black" Kind="Menu" Width="25" Height="25"/>
+                    </Button>
+                </Grid>
+                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="#FF00C500" Height="356" Margin="0,0,0,0">
+                    <ListViewItem Height="71">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FileExcel" Width="25" Height="25" VerticalAlignment="Center" Margin="10"/>
+                            <TextBlock Text="Eksoprtuj do arkusza Excel" Height="19"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="71">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FileImport" Width="25" Height="25" VerticalAlignment="Center" Margin="10"/>
+                            <TextBlock Text="Importuj z arkusza Excel" Height="19"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="71">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="DeleteVariant" Width="25" Height="25" VerticalAlignment="Center" Margin="10"/>
+                            <TextBlock Text="Usuń wybrany wiersz" Height="19"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="71">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" VerticalAlignment="Center" Margin="10"/>
+                            <TextBlock Text="Usuń wszystkie dane" Height="19"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="71">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Power" Width="25" Height="25" VerticalAlignment="Center" Margin="10"/>
+                            <TextBlock Text="Zakończ" Height="19"/>
+                        </StackPanel>
+                    </ListViewItem>
+
+                </ListView>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

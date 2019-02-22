@@ -13,3 +13,9 @@ C:\Users\Paweł Kulewicz\Documents\GitHub\Wynagrodzenia\Wynagrodzenia\obj\Debug\
 C:\Users\Paweł Kulewicz\Documents\GitHub\Wynagrodzenia\Wynagrodzenia\obj\Debug\Wynagrodzenia.csproj.CoreCompileInputs.cache
 C:\Users\Paweł Kulewicz\Documents\GitHub\Wynagrodzenia\Wynagrodzenia\obj\Debug\Wynagrodzenia.exe
 C:\Users\Paweł Kulewicz\Documents\GitHub\Wynagrodzenia\Wynagrodzenia\obj\Debug\Wynagrodzenia.pdb
+C:\Users\Paweł Kulewicz\Documents\GitHub\Wynagrodzenia\Wynagrodzenia\bin\Debug\MaterialDesignColors.dll
+C:\Users\Paweł Kulewicz\Documents\GitHub\Wynagrodzenia\Wynagrodzenia\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Paweł Kulewicz\Documents\GitHub\Wynagrodzenia\Wynagrodzenia\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Paweł Kulewicz\Documents\GitHub\Wynagrodzenia\Wynagrodzenia\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Paweł Kulewicz\Documents\GitHub\Wynagrodzenia\Wynagrodzenia\obj\Debug\Wynagrodzenia.csproj.CopyComplete
+C:\Users\Paweł Kulewicz\Documents\GitHub\Wynagrodzenia\Wynagrodzenia\obj\Debug\App.baml
