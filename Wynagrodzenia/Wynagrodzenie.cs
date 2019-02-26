@@ -8,6 +8,7 @@ namespace Wynagrodzenia
 {
     public class Wynagrodzenie
     {
+        public string liczba_porzad { get; set; }
         public string placa_podstawowa { get; set; }
         public string dodatki { get; set; }
         public string wynagr_brutto { get; set; }

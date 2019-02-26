@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wynagrodzenia"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Height="550" Width="1140" WindowStartupLocation="Manual" ResizeMode="NoResize" WindowStyle="None">
+        mc:Ignorable="d" Height="550" Width="1172" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" WindowStyle="None">
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Menuleft">
@@ -31,17 +31,17 @@
 
 
 
-    <Grid Background="Gainsboro">
+    <Grid Background="Gainsboro" MouseDown="Grid_MouseDown">
         <Grid x:Name="TitleTop" Height="60" VerticalAlignment="Top" Grid.ColumnSpan="2" Background="#FF00C500">
             <TextBlock Text="Kalkulator wynagrodzeń" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="22"/>
-            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="1045,10,55,10" Width="Auto">
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="1077,10,55,10" Width="Auto" Click="Minimize_Click">
                 <materialDesign:PackIcon Kind="WindowMinimize" Width="25" Height="25"/>
             </Button>
-            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="1095,10,5,10" Width="Auto">
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="1127,10,5,10" Width="Auto" Click="Close_Button">
                 <materialDesign:PackIcon Kind="Close" Width="25" Height="25"/>
             </Button>
         </Grid>
-        <DataGrid x:Name="Lista_plac" HorizontalAlignment="Left" Margin="60,60,0,0" VerticalAlignment="Top" Width="1080" Height="300" Background="#FFBBBBBB">
+        <DataGrid x:Name="Lista_plac" HorizontalAlignment="Left" Margin="60,60,0,0" IsReadOnly="True" VerticalAlignment="Top" Width="1112" Height="300" Background="#FFBBBBBB" Foreground="#DD000000">
 
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -49,10 +49,10 @@
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="BorderThickness" Value="0,0,1,2"/>
                     <Setter Property="BorderBrush" Value="Black"/>
-
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Lp." Binding="{Binding liczba_porzad}" Width="50"></DataGridTextColumn>
                 <DataGridTextColumn Header="Płaca podst." Binding="{Binding placa_podstawowa}" Width="120"></DataGridTextColumn>
                 <DataGridTextColumn Header="Dodatki" Binding="{Binding dodatki}" Width="120"></DataGridTextColumn>
                 <DataGridTextColumn Header="Wynagr. Brutto" Binding="{Binding wynagr_brutto}" Width="120"></DataGridTextColumn>
@@ -63,6 +63,7 @@
                 <DataGridTextColumn Header="Podatek do US" Binding="{Binding podatekUS}" Width="120"></DataGridTextColumn>
                 <DataGridTextColumn Header="Wynagr. Netto" Binding="{Binding wynagr_netto}" Width="120"></DataGridTextColumn>
             </DataGrid.Columns>
+        
 
         </DataGrid>
 
@@ -85,37 +86,36 @@
                     </Button>
                 </Grid>
                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="#FF00C500" Height="356" Margin="0,0,0,0">
-                    <ListViewItem Height="71">
+                    <ListViewItem Height="71" x:Name="ExcelExport" MouseLeftButtonUp="ExcelExport_Button">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="FileExcel" Width="25" Height="25" VerticalAlignment="Center" Margin="10"/>
-                            <TextBlock Text="Eksoprtuj do arkusza Excel" Height="19"/>
+                            <TextBlock Text="Eksoprtuj do arkusza Excel" Foreground="White" Height="19"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="71">
+                    <ListViewItem Height="70" x:Name="ExcelImport">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="FileImport" Width="25" Height="25" VerticalAlignment="Center" Margin="10"/>
-                            <TextBlock Text="Importuj z arkusza Excel" Height="19"/>
+                            <TextBlock Text="Importuj z arkusza Excel" Foreground="White" Height="19"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="71">
+                    <ListViewItem Height="70" x:Name="DeleteOneLine">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="DeleteVariant" Width="25" Height="25" VerticalAlignment="Center" Margin="10"/>
-                            <TextBlock Text="Usuń wybrany wiersz" Height="19"/>
+                            <TextBlock Text="Usuń wybrany wiersz" Foreground="White" Height="19"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="71">
-                        <StackPanel Orientation="Horizontal">
+                    <ListViewItem Height="70">
+                        <StackPanel Orientation="Horizontal" x:Name="DeleteAllLine">
                             <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" VerticalAlignment="Center" Margin="10"/>
-                            <TextBlock Text="Usuń wszystkie dane" Height="19"/>
+                            <TextBlock Text="Usuń wszystkie dane" Foreground="White" Height="19"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="71">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Power" Width="25" Height="25" VerticalAlignment="Center" Margin="10"/>
-                            <TextBlock Text="Zakończ" Height="19"/>
-                        </StackPanel>
-                    </ListViewItem>
-
+                    <ListViewItem Height="70" MouseLeftButtonUp="Power_Button">
+                            <StackPanel Orientation="Horizontal" x:Name="Shutdown">
+                                <materialDesign:PackIcon Kind="Power" Width="25" Height="25" VerticalAlignment="Center" Margin="10"/>
+                                <TextBlock Text="Zakończ" Foreground="White" Height="19"/>
+                            </StackPanel>
+                        </ListViewItem>
                 </ListView>
             </StackPanel>
         </Grid>

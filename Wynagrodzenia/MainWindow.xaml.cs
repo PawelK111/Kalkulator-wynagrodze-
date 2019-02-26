@@ -25,6 +25,7 @@ namespace Wynagrodzenia
         decimal brutto;
         decimal spoleczne;
         decimal podatek;
+        int lp = 0;
         public MainWindow()
         {
             InitializeComponent();   
@@ -56,7 +57,7 @@ namespace Wynagrodzenia
                         {
                             nieskładkoweText.Text = "0";
                         }
-
+                        addwynagrodzenie.liczba_porzad = (++lp).ToString();
                         brutto = podstawowa + dodatkii;
                         spoleczne = (brutto - (brutto * 0.0976M) - (brutto * 0.015M) - (brutto * 0.0245M));
                         podatek = (((spoleczne - 111.25M) * 0.18M) - 46.33M) - ((spoleczne) * 0.0775M);
@@ -93,6 +94,31 @@ namespace Wynagrodzenia
             ButtonOpenMenu.Visibility = Visibility.Visible;
         }
 
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
 
+        private void Close_Button(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void Power_Button(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void ExcelExport_Button(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }  
 }
