@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wynagrodzenia"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Height="550" Width="1172" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" WindowStyle="None">
+        mc:Ignorable="d" Height="550" Width="1177" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" WindowStyle="None">
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Menuleft">
@@ -41,7 +41,7 @@
                 <materialDesign:PackIcon Kind="Close" Width="25" Height="25"/>
             </Button>
         </Grid>
-        <DataGrid x:Name="Lista_plac" HorizontalAlignment="Left" Margin="60,60,0,0" IsReadOnly="True" VerticalAlignment="Top" Width="1112" Height="300" Background="#FFBBBBBB" Foreground="#DD000000">
+        <DataGrid x:Name="Lista_plac" HorizontalAlignment="Left" Margin="60,60,0,0" IsReadOnly="True" VerticalAlignment="Top" Width="1117" Height="300" Background="#FFBBBBBB" Foreground="#DD000000">
 
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -70,7 +70,7 @@
         <Button x:Name="oblicz_button" Content="Oblicz" HorizontalAlignment="Left" Margin="200,487,0,0" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Width="121" Height="38" Click="Oblicz_button_Click" Cursor="Hand" IsDefault="True" Background="#FF00D300" BorderBrush="#FF2B6800"/>
         <TextBox x:Name="placapodstText" HorizontalAlignment="Left" Height="31" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="121" Margin="200,365,0,0" RenderTransformOrigin="0.508,0.511" CaretBrush="#FF00AF00" SelectionBrush="#FF00AF00"/>
         <TextBox x:Name="dodatkiText" HorizontalAlignment="Left" Height="31" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="121" Margin="200,401,0,0" SelectionBrush="#FF00AF00" CaretBrush="#FF00AF00"/>
-        <TextBox x:Name="nieskładkoweText" HorizontalAlignment="Left" Height="33" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="121" Margin="200,438,0,0" CaretBrush="#FF00AF00" SelectionBrush="#FF00AF00"/>
+        <TextBox x:Name="nieskladkoweText" HorizontalAlignment="Left" Height="33" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="121" Margin="200,438,0,0" CaretBrush="#FF00AF00" SelectionBrush="#FF00AF00"/>
         <Label Content="Płaca zasadnicza:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="71,365,0,0" Width="124" Foreground="#FF040404" FontWeight="Bold" FontSize="14" Height="31"/>
         <Label Content="Dodatki:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,401,0,0" Width="68" Foreground="Black" FontWeight="Bold" FontSize="14" Height="31"/>
         <Label Content="Dodatki nieopod.:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="65,438,0,0" Width="130" Foreground="Black" FontWeight="Bold" FontSize="14" Height="33" RenderTransformOrigin="0.277,0.452"/>
@@ -98,14 +98,14 @@
                             <TextBlock Text="Importuj z arkusza Excel" Foreground="White" Height="19"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="70" x:Name="DeleteOneLine">
+                    <ListViewItem Height="70" x:Name="DeleteOneRows">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="DeleteVariant" Width="25" Height="25" VerticalAlignment="Center" Margin="10"/>
                             <TextBlock Text="Usuń wybrany wiersz" Foreground="White" Height="19"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="70">
-                        <StackPanel Orientation="Horizontal" x:Name="DeleteAllLine">
+                    <ListViewItem Height="70" x:Name="DeleteAllRows" MouseLeftButtonUp="DeleteAllRows_Button">
+                        <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Delete" Width="25" Height="25" VerticalAlignment="Center" Margin="10"/>
                             <TextBlock Text="Usuń wszystkie dane" Foreground="White" Height="19"/>
                         </StackPanel>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Wynagrodzenia
 {
@@ -20,68 +21,62 @@ namespace Wynagrodzenia
     /// </summary>
     public partial class MainWindow : Window
     {
-        decimal podstawowa;
-        decimal dodatkii;
-        decimal brutto;
-        decimal spoleczne;
-        decimal podatek;
+        Dictionary<int, Wynagrodzenie> wynagrodzenia = new Dictionary<int, Wynagrodzenie>();
+        
         int lp = 0;
         public MainWindow()
         {
-            InitializeComponent();   
+            InitializeComponent();     
         }
-
         private void Oblicz_button_Click(object sender, RoutedEventArgs e)
         {
+            Obciazenia obc = new Obciazenia(0.0976M, 0.015M, 0.0245M, 0.09M, 0.18M, 111.25M, 0.0775M, 46.33M);
+
             
-                if (placapodstText.Text == "")
-                {
-                    MessageBox.Show("Wprowadź płacę zasadniczą!", "Błąd wyliczenia", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+            if (placapodstText.Text == "")
+                    MessageBox.Show("Wprowadź płacę zasadniczą!", "Błąd wyliczenia!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 else
                 {
                     try
                     {
-                        Wynagrodzenie addwynagrodzenie = new Wynagrodzenie();
-                        podstawowa = decimal.Parse(placapodstText.Text);
-                        if (dodatkiText.Text == "")
-                        {
-                            dodatkii = 0;
-                            dodatkiText.Text = "0";
-                        }
-                        else
-                        {
-                            dodatkii = decimal.Parse(dodatkiText.Text);
-                        }
-                        if (nieskładkoweText.Text == "")
-                        {
-                            nieskładkoweText.Text = "0";
-                        }
-                        addwynagrodzenie.liczba_porzad = (++lp).ToString();
-                        brutto = podstawowa + dodatkii;
-                        spoleczne = (brutto - (brutto * 0.0976M) - (brutto * 0.015M) - (brutto * 0.0245M));
-                        podatek = (((spoleczne - 111.25M) * 0.18M) - 46.33M) - ((spoleczne) * 0.0775M);
-
-                        addwynagrodzenie.placa_podstawowa = podstawowa.ToString("c");
-                        addwynagrodzenie.dodatki = dodatkii.ToString("c");
-                        addwynagrodzenie.wynagr_brutto = brutto.ToString("c");
-                        addwynagrodzenie.ubezp_emerytalne = (brutto * 0.0976M).ToString("c");
-                        addwynagrodzenie.ubezp_rentowe = (brutto * 0.015M).ToString("c");
-                        addwynagrodzenie.ubezp_chorobowe = (brutto * 0.0245M).ToString("c");
-                        addwynagrodzenie.ubezp_zdrowotne = (spoleczne * 0.09M).ToString("c");
-                        addwynagrodzenie.podatekUS = Math.Round(podatek, 0).ToString("c");
-
-
-                        addwynagrodzenie.wynagr_netto = ((brutto - (brutto * 0.0976M) - (brutto * 0.015M) - (brutto * 0.0245M) - (spoleczne * 0.09M) - Math.Round(podatek, 0)) + decimal.Parse(nieskładkoweText.Text)).ToString("c");
-
-
-                        Lista_plac.Items.Add(addwynagrodzenie);
+                    ReplaceSign();
+                    wynagrodzenia.Add(++lp, new Wynagrodzenie(lp));
+                    Calculator(obc);
+                    Lista_plac.Items.Add(wynagrodzenia[lp]);
                     }
-                    catch
+                    catch(Exception ex)
                     {
-                        MessageBox.Show("Wprowadzono błędne dane!", "Błąd wyliczenia", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.ToString(), "Błąd wyliczenia!", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
+        }
+
+        private void ReplaceSign()
+        {
+            if (dodatkiText.Text == "")
+                dodatkiText.Text = "0";
+            if (nieskladkoweText.Text == "")
+                nieskladkoweText.Text = "0";
+            placapodstText.Text = placapodstText.Text.Replace(',', '.');
+            dodatkiText.Text = dodatkiText.Text.Replace(',', '.');
+            nieskladkoweText.Text = nieskladkoweText.Text.Replace(',', '.');
+        }
+        private void Calculator(Obciazenia obc)
+        {
+            decimal brutto = Math.Round(Convert.ToDecimal(placapodstText.Text) + Convert.ToDecimal(dodatkiText.Text),2);
+            decimal spoleczne = (brutto - (brutto * obc.Emerytalna) - (brutto * obc.Rentowa) - (brutto * obc.Chorobowa));
+            decimal podatek = (((spoleczne - obc.KUP) * obc.PD) - obc.KWOP) - ((spoleczne) * obc.Zdrowotna2);
+
+            wynagrodzenia[lp].placa_podstawowa = Math.Round(Convert.ToDecimal(placapodstText.Text), 2);
+            wynagrodzenia[lp].dodatki = Math.Round(Convert.ToDecimal(dodatkiText.Text),2);
+            wynagrodzenia[lp].wynagr_brutto = brutto;
+            wynagrodzenia[lp].ubezp_emerytalne = Math.Round(brutto * obc.Emerytalna,2);
+            wynagrodzenia[lp].ubezp_rentowe = Math.Round(brutto * obc.Rentowa,2);
+            wynagrodzenia[lp].ubezp_chorobowe = Math.Round(brutto * obc.Chorobowa,2);
+            wynagrodzenia[lp].ubezp_zdrowotne = Math.Round(spoleczne * obc.Zdrowotna1,2);
+            wynagrodzenia[lp].podatekUS = Math.Round(podatek, 0);
+
+            wynagrodzenia[lp].wynagr_netto = Math.Round((brutto - (brutto * obc.Emerytalna) - (brutto * obc.Rentowa) - (brutto * obc.Chorobowa) - (spoleczne * obc.Zdrowotna1) - Math.Round(podatek, 0)) + decimal.Parse(nieskladkoweText.Text),2);
         }
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
         {
@@ -118,7 +113,36 @@ namespace Wynagrodzenia
 
         private void ExcelExport_Button(object sender, MouseButtonEventArgs e)
         {
+            if (Lista_plac.Items.IsEmpty == true)
+            {
+                MessageBox.Show("Nie wprowadzono żadnych danych!", "Błąd zapisu!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                string path = @"C:\Wynagrodzenia";
 
+                if (!Directory.Exists(path))
+                {
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+                }
+
+                Lista_plac.SelectAllCells();
+                Lista_plac.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
+                ApplicationCommands.Copy.Execute(null, Lista_plac);
+                String resultat = (string)Clipboard.GetData(DataFormats.CommaSeparatedValue);
+                String result = (string)Clipboard.GetData(DataFormats.Text);
+                Lista_plac.UnselectAllCells();
+                StreamWriter sheet1 = new StreamWriter(@"C:\Wynagrodzenia\sheet1.xls", false, Encoding.GetEncoding("Windows-1252"));
+                sheet1.WriteLine(result.Replace(',', ' '));
+                sheet1.Close();
+            }
+        }
+
+        private void DeleteAllRows_Button(object sender, MouseButtonEventArgs e)
+        {
+            Lista_plac.Items.Clear();
+            wynagrodzenia.Clear();
+            lp = 0;
         }
     }  
 }
